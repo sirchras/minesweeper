@@ -2,28 +2,34 @@ document.addEventListener('DOMContentLoaded', startGame)
 
 // Define your `board` object here!
 let board = {
-  cells: [],
+  // cells: [],
 };
 
-let width = 3;
-for(let row = 0; row < width; row++) {
-  for(let col = 0; col < width; col++) {
-    let i = row * width + col;
-    board.cells[i] = {
-      row: row,
-      col: col,
-      isMine: false,
-      hidden: true,
-    };
+function generateBoard(width) {
+  let board = { cells: [] };
+  for(let row = 0; row < width; row++) {
+    for(let col = 0; col < width; col++) {
+      let i = row * width + col;
+      board.cells[i] = {
+        row: row,
+        col: col,
+        isMine: false,
+        hidden: true,
+      };
+    }
   }
+
+  return board;
 }
 
-// set mines
-board.cells[3].isMine = true;
-board.cells[4].isMine = true;
-board.cells[8].isMine = true;
-
 function startGame () {
+  board = generateBoard(3);
+
+  // set mines
+  board.cells[3].isMine = true;
+  board.cells[4].isMine = true;
+  board.cells[8].isMine = true;
+
   for(let i = 0; i < board.cells.length; i++) {
     board.cells[i].surroundingMines = countSurroundingMines(board.cells[i]);
   }
