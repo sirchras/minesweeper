@@ -1,24 +1,32 @@
 document.addEventListener('DOMContentLoaded', startGame)
 
 // Define your `board` object here!
-var board = {
+let board = {
   cells: [],
 };
 
 let width = 3;
-for(var row = 0; row < width; row++) {
-  for(var col = 0; col < width; col++) {
+for(let row = 0; row < width; row++) {
+  for(let col = 0; col < width; col++) {
     let i = row * width + col;
     board.cells[i] = {
       row: row,
       col: col,
       isMine: false,
       hidden: true,
-    }
+    };
   }
 }
 
+// set mines
+board.cells[3].isMine = true;
+board.cells[4].isMine = true;
+board.cells[8].isMine = true;
+
 function startGame () {
+  for(let i = 0; i < cells.length; i++) {
+    board.cells[i].surroundingMines = countSurroundingMines(board.cells[i]);
+  }
   // Don't remove this function call: it makes the game work!
   lib.initBoard()
 }
@@ -43,5 +51,11 @@ function checkForWin () {
 // It will return cell objects in an array. You should loop through 
 // them, counting the number of times `cell.isMine` is true.
 function countSurroundingMines (cell) {
+  let surrounding = lib.getSurroundingCells(cell.row, cell.col);
+  let count = 0;
+  for(let i = 0; i < surrounding.length; i++) {
+    if(surrounding[i].isMine) count++;
+  }
+  return count;
 }
 
