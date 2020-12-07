@@ -51,7 +51,7 @@ function checkForWin () {
     if(!mines[i].isMarked) return;
   }
   for(let i = 0; i < notMines.length; i++) {
-    if(notMines.hidden) return
+    if(notMines[i].hidden) return
   }
   // You can use this function call to declare a winner (once you've
   // detected that they've won, that is!)
